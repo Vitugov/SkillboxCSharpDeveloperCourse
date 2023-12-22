@@ -6,7 +6,8 @@ namespace Task0102
     {
         Detailed,
         Summary,
-        Full
+        Full,
+        Random
     }
     public class PrintFormat
     {
@@ -38,8 +39,8 @@ namespace Task0102
         {
             var counter = 0;
             var formatString = propertiesToPrint
-                .Select(property => "{" + counter++ + "," + property.GetCustomAttribute<LabelAttribute>().PrintedFormat + "}");
-            return string.Concat(formatString);
+                .Select(property => "| {" + counter++ + "," + property.GetCustomAttribute<LabelAttribute>().PrintedFormat + "} ");
+            return string.Concat(formatString) + "|";
         }
 
         public static List<string> GenerateHeader(List<PropertyInfo> propertiesToPrint)
@@ -54,6 +55,7 @@ namespace Task0102
         {
             var result = type.GetProperties()
                 .Where(x => propertiesToPrint.Contains(x.Name))
+                .OrderBy(x => propertiesToPrint.IndexOf(x.Name))
                 .ToList();
             return result;
         }
@@ -82,6 +84,17 @@ namespace Task0102
                 { "FullName", "Email", "Age", "SumScores", "AverageScores" });
             new PrintFormat(PrintFormats.Full, typeof(StudentScores), new List<string>
                 { "FullName", "Email", "Age", "ProgrammingScores", "MathScores", "PhysicsScores", "SumScores", "AverageScores" });
+            GenerateNewRandomFormat();
         }
+
+        public static void GenerateNewRandomFormat()
+        {
+            var properties = new List<string>
+                { "FullName", "Email", "Age", "ProgrammingScores", "MathScores", "PhysicsScores", "SumScores", "AverageScores" };
+            var rnd = new Random();
+            var rndPropeties = properties.OrderBy(item => rnd.Next()).Take(rnd.Next(1, 8)).ToList();
+            new PrintFormat(PrintFormats.Random, typeof(StudentScores), rndPropeties);
+        }
+
     }
 }

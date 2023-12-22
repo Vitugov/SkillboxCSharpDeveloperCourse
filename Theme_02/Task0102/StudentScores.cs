@@ -47,6 +47,8 @@ namespace Task0102
 
         public static void PrintAllStudents(PrintFormat printFormat)
         {
+            if (printFormat.Name == PrintFormats.Random)
+                PrintFormat.GenerateNewRandomFormat();
             PrintHeader(printFormat);
             foreach (var student in All)
                 Console.WriteLine(printFormat.FormatString, printFormat.Properties
@@ -56,7 +58,7 @@ namespace Task0102
 
         public static void PrintHeader(PrintFormat printFormat)
         {
-            Console.WriteLine(printFormat.Name);
+            Console.WriteLine(printFormat.Name + " report");
             Console.WriteLine(printFormat.FormatString, printFormat.Header.ToArray<object>());
         }
     }

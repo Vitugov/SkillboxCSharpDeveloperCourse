@@ -11,8 +11,12 @@ namespace Task0102
             Console.ReadKey();
             StudentScores.PrintAllStudents(studentScoreFormats[PrintFormats.Summary]);
             Console.ReadKey();
-            //StudentScores.PrintAllStudents(studentScoreFormats[PrintFormats.Full]);
-            //Console.ReadKey();
+            StudentScores.PrintAllStudents(studentScoreFormats[PrintFormats.Random]);
+            Console.ReadKey();
+            StudentScores.PrintAllStudents(studentScoreFormats[PrintFormats.Random]);
+            Console.ReadKey();
+            StudentScores.PrintAllStudents(studentScoreFormats[PrintFormats.Full]);
+            Console.ReadKey();
         }
 
         public static void Initialize()
