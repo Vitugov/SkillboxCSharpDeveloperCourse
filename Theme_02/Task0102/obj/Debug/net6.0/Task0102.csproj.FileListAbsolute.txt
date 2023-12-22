@@ -1,0 +1,14 @@
+D:\Docs\GitRepository\Theme_02\Task0102\bin\Debug\net6.0\Task0102.exe
+D:\Docs\GitRepository\Theme_02\Task0102\bin\Debug\net6.0\Task0102.deps.json
+D:\Docs\GitRepository\Theme_02\Task0102\bin\Debug\net6.0\Task0102.runtimeconfig.json
+D:\Docs\GitRepository\Theme_02\Task0102\bin\Debug\net6.0\Task0102.dll
+D:\Docs\GitRepository\Theme_02\Task0102\bin\Debug\net6.0\Task0102.pdb
+D:\Docs\GitRepository\Theme_02\Task0102\obj\Debug\net6.0\Task0102.GeneratedMSBuildEditorConfig.editorconfig
+D:\Docs\GitRepository\Theme_02\Task0102\obj\Debug\net6.0\Task0102.AssemblyInfoInputs.cache
+D:\Docs\GitRepository\Theme_02\Task0102\obj\Debug\net6.0\Task0102.AssemblyInfo.cs
+D:\Docs\GitRepository\Theme_02\Task0102\obj\Debug\net6.0\Task0102.csproj.CoreCompileInputs.cache
+D:\Docs\GitRepository\Theme_02\Task0102\obj\Debug\net6.0\Task0102.dll
+D:\Docs\GitRepository\Theme_02\Task0102\obj\Debug\net6.0\refint\Task0102.dll
+D:\Docs\GitRepository\Theme_02\Task0102\obj\Debug\net6.0\Task0102.pdb
+D:\Docs\GitRepository\Theme_02\Task0102\obj\Debug\net6.0\Task0102.genruntimeconfig.cache
+D:\Docs\GitRepository\Theme_02\Task0102\obj\Debug\net6.0\ref\Task0102.dll
