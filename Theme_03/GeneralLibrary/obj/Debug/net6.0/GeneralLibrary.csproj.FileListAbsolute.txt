@@ -1,0 +1,11 @@
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\bin\Debug\net6.0\GeneralLibrary.deps.json
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\bin\Debug\net6.0\GeneralLibrary.dll
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\bin\Debug\net6.0\GeneralLibrary.pdb
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\obj\Debug\net6.0\GeneralLibrary.GeneratedMSBuildEditorConfig.editorconfig
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\obj\Debug\net6.0\GeneralLibrary.AssemblyInfoInputs.cache
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\obj\Debug\net6.0\GeneralLibrary.AssemblyInfo.cs
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\obj\Debug\net6.0\GeneralLibrary.csproj.CoreCompileInputs.cache
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\obj\Debug\net6.0\GeneralLibrary.dll
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\obj\Debug\net6.0\refint\GeneralLibrary.dll
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\obj\Debug\net6.0\GeneralLibrary.pdb
+D:\Docs\GitRepository\Theme_03\GeneralLibrary\obj\Debug\net6.0\ref\GeneralLibrary.dll

@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "Task3/1.0.0": {
+        "dependencies": {
+          "GeneralLibrary": "1.0.0"
+        },
+        "runtime": {
+          "Task3.dll": {}
+        }
+      },
+      "GeneralLibrary/1.0.0": {
+        "runtime": {
+          "GeneralLibrary.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Task3/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GeneralLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
