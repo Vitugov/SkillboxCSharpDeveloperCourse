@@ -1,0 +1,14 @@
+D:\Docs\GitRepository\Theme04\GameOfLife\bin\Debug\net6.0\GameOfLife.exe
+D:\Docs\GitRepository\Theme04\GameOfLife\bin\Debug\net6.0\GameOfLife.deps.json
+D:\Docs\GitRepository\Theme04\GameOfLife\bin\Debug\net6.0\GameOfLife.runtimeconfig.json
+D:\Docs\GitRepository\Theme04\GameOfLife\bin\Debug\net6.0\GameOfLife.dll
+D:\Docs\GitRepository\Theme04\GameOfLife\bin\Debug\net6.0\GameOfLife.pdb
+D:\Docs\GitRepository\Theme04\GameOfLife\obj\Debug\net6.0\GameOfLife.GeneratedMSBuildEditorConfig.editorconfig
+D:\Docs\GitRepository\Theme04\GameOfLife\obj\Debug\net6.0\GameOfLife.AssemblyInfoInputs.cache
+D:\Docs\GitRepository\Theme04\GameOfLife\obj\Debug\net6.0\GameOfLife.AssemblyInfo.cs
+D:\Docs\GitRepository\Theme04\GameOfLife\obj\Debug\net6.0\GameOfLife.csproj.CoreCompileInputs.cache
+D:\Docs\GitRepository\Theme04\GameOfLife\obj\Debug\net6.0\GameOfLife.dll
+D:\Docs\GitRepository\Theme04\GameOfLife\obj\Debug\net6.0\refint\GameOfLife.dll
+D:\Docs\GitRepository\Theme04\GameOfLife\obj\Debug\net6.0\GameOfLife.pdb
+D:\Docs\GitRepository\Theme04\GameOfLife\obj\Debug\net6.0\GameOfLife.genruntimeconfig.cache
+D:\Docs\GitRepository\Theme04\GameOfLife\obj\Debug\net6.0\ref\GameOfLife.dll
