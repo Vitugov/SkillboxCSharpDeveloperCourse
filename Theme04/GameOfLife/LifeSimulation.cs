@@ -1,31 +1,81 @@
 ﻿
+using System.Numerics;
+
 namespace GameOfLife
 {
     public class LifeSimulation
     {
+        public Dictionary<Creature, Vector> CreaturesPlaces { get; set; }
         public LifeSimulationStartParameters StartParameters { get; set; }
         public int Height => StartParameters.Height;
         public int Width => StartParameters.Width;
-        private Creature[,] Cells { get; set; }
-
+        public Creature[,] Cells { get; set; }
         public bool[,] IsProcessed { get; set; }
 
         public LifeSimulation(LifeSimulationStartParameters startParameters)
         {
             StartParameters = startParameters;
+            CreaturesPlaces = new Dictionary<Creature, Vector>();
             Cells = new Creature[Height, Width];
             IsProcessed = new bool[Height, Width];
             GenerateField();
         }
 
+        private void SetValue(Vector vector, Creature creature)
+        {
+
+        }
+
         public Creature this[Creature creature]
         {
-            get => Cells[creature.Place.X, creature.Place.Y];
+            get
+            {
+                if (!CreaturesPlaces.ContainsKey(creature))
+                    throw new ArgumentException();
+                var vector = CreaturesPlaces[creature];
+                return Cells[vector.X, vector.Y];
+            }
+        }
+
+        public Creature this[Vector vector]
+        {
             set
             {
-                Cells[creature.Place.X, creature.Place.Y] = value;
-                IsProcessed[creature.Place.X, creature.Place.Y] = true;
+                if (value == null)
+                    throw new ArgumentNullException();
+                var temp = Cells[vector.X, vector.Y];
+                if (temp == value)
+                    throw new NullReferenceException();
+                Cells[vector.X, vector.Y] = value;
+                IsProcessed[vector.X, vector.Y] = true;
+                if (temp != null && CreaturesPlaces.ContainsKey(temp) && CreaturesPlaces[temp].X == vector.X && CreaturesPlaces[temp].Y == vector.Y)
+                    CreaturesPlaces.Remove(temp);
+                CreaturesPlaces[value] = vector;
             }
+        }
+
+        public void MoveAndEat(Creature current, Creature victim)
+        {
+         //   this[victim.] = current;
+        }
+
+        public void BornAndEat()
+        {
+
+        }
+
+        public void Die(Creature creature)
+        {
+            var vector = CreaturesPlaces[creature];
+            if (creature != null && CreaturesPlaces.ContainsKey(creature))
+                CreaturesPlaces.Remove(creature);
+            Cells[vector.X, vector.Y] = creature.NewNullClassAtThisPlace;
+
+        }
+
+        public void Born()
+        {
+
         }
 
         public void DrawAndGrow()

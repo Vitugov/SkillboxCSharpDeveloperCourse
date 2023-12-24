@@ -3,14 +3,17 @@ namespace GameOfLife
 {
     public class Vector
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get; }
+        public int Y { get; }
 
         public Vector(int x, int y)
         {
             X = x;
             Y = y;
         }
+
+        public static bool operator ==(Vector a, Vector b) { return a.Equals(b); }
+        public static bool operator !=(Vector a, Vector b) { return !a.Equals(b); }
 
         public List<Vector> GetNearbyVectors()
         {
@@ -20,5 +23,29 @@ namespace GameOfLife
                      result.Add(new Vector(i, j));
             return result;
         }
+
+        public override string ToString()
+        {
+            return "(" + X + ", " + Y + ")";
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj.GetType() != typeof(Vector))
+                return false;
+            return ((Vector)obj).X == this.X && ((Vector)obj).Y == this.Y;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hash = X.GetHashCode();
+                hash = hash * 23 + Y.GetHashCode();
+                return hash;
+            }
+        }
+
+
     }
 }

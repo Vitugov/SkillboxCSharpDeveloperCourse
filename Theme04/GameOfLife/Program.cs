@@ -5,11 +5,11 @@ namespace GameOfLife
     {
 
         // Ограничения игры
-        private const int Heigth = 30;
-        private const int Width = 50;
+        private const int Heigth = 20;
+        private const int Width = 40;
         private const uint MaxRuns = 1000;
         private static LifeSimulationStartParameters StartParameters
-            = new LifeSimulationStartParameters(Heigth, Width, 1, 10, 20, 2);
+            = new LifeSimulationStartParameters(Heigth, Width, 2, 10, 20, 2);
 
         private static void Main(string[] args)
         {

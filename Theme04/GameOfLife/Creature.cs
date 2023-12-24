@@ -3,7 +3,7 @@ namespace GameOfLife
 {    
     public class Creature
     {
-        private protected Creature NewNullClassAtThisPlace => new Ground(Simulation, Place) ;
+        public Creature NewNullClassAtThisPlace => new Ground(Simulation, GetPlace()) ;
         public CreatureProfile Profile { get; set; }
         private protected int Age { get; set; }
         public LifeSimulation Simulation { get; }
@@ -11,34 +11,33 @@ namespace GameOfLife
         public bool DiceToEatAndMultiply => CreatureProfile.Rnd(Profile.ChanceToEatAndMultiply);
         public bool DiceToDieWithoutFood => CreatureProfile.Rnd(Profile.ChanceToDieWithoutFood);
 
-        private protected Vector place;
-        public Vector Place
+        public Vector GetPlace()
         {
-            get => place;
-            set
-            {
-                place = value;
-                Simulation[this] = this;
-            }
+            if (!Simulation.CreaturesPlaces.ContainsKey(this))
+                 throw new NullReferenceException();
+            return Simulation.CreaturesPlaces[this];
         }
-
         public Creature(LifeSimulation simulation, Vector place)
         {
             Profile = CreatureProfile.All[GetType()];
             Simulation = simulation;
             Age = 0;
-            Place = place;
-            Simulation[this] = this;
+            Simulation[place] = this;
         }
 
         public virtual void Grow()
         {
-            var neighborsOftype = Simulation.GetNeighborsOfType(Profile.Victim, Place);
+            
+            var neighborsOftype = Simulation.GetNeighborsOfType(Profile.Victim, GetPlace());
             var neighborOfTypeCount = neighborsOftype.Count();
             if (neighborOfTypeCount > 0)
                 Handle(neighborsOftype, Math.Min(neighborOfTypeCount, 2));
             if (neighborOfTypeCount == 0 && DiceToDieWithoutFood)
-                Simulation[this] = NewNullClassAtThisPlace;
+            {
+                var place = GetPlace();
+                var newGround = new Ground(Simulation, place);
+            }    
+            
         }
 
         public void Handle(List<Creature> list, int num)
@@ -46,16 +45,17 @@ namespace GameOfLife
             var targets = list.OrderBy(x => (new Random()).Next()).Take(num).ToList();
             if (DiceToEat)
             {
-                Simulation[this] = NewNullClassAtThisPlace;
-                Place = Simulation[targets[0]].Place;
+                var tempPlace = this.GetPlace();
+                Simulation[targets[0].GetPlace()] = this;
+                new Ground(Simulation, tempPlace);
             }
             if (num == 2 && DiceToEatAndMultiply)
-                Activator.CreateInstance(GetType(), Simulation, Simulation[targets[1]].Place);
+                Activator.CreateInstance(GetType(), Simulation, Simulation[targets[1]].GetPlace());
         }
 
         public override string ToString()
         {
-            return Profile.Symbol.ToString();
+            return Profile.Symbol.ToString() + " " + GetPlace().ToString();
         }
     }
 }
