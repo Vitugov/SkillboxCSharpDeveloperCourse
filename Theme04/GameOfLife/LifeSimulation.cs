@@ -1,7 +1,4 @@
 ﻿
-using System.Diagnostics;
-using System.Numerics;
-
 namespace GameOfLife
 {
     public class LifeSimulation
