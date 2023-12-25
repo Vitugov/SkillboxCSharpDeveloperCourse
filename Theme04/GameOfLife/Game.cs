@@ -4,7 +4,7 @@ namespace GameOfLife
     public class Game
     {
         public GameManager Data { get; }
-        public StartParameters StartParameters { get; set; }
+        public StartParameters StartParameters { get; }
 
         public Game(StartParameters startParameters)
         {

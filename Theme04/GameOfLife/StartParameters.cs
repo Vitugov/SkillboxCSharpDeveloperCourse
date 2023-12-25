@@ -6,7 +6,7 @@ namespace GameOfLife
         private Random random;
         public int Height { get; }
         public int Width { get; }
-        public Dictionary<Type, double> WeightsOfCreatures { get; set; }
+        public Dictionary<Type, double> WeightsOfCreatures { get; }
 
         public StartParameters(int height, int width, double wolfWeight, double sheepWeight, double grassWeight, double GroundWeight)
         {

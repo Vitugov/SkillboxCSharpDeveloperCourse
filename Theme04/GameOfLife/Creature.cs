@@ -3,7 +3,7 @@ namespace GameOfLife
 {    
     public class Creature
     {
-        public CreatureProfile Profile { get; set; }
+        public CreatureProfile Profile { get; }
         private protected int Age { get; set; }
         public Game Simulation { get; }
 
