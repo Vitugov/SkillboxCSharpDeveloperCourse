@@ -1,14 +1,14 @@
 ﻿
 namespace GameOfLife
 {
-    public class LifeSimulationStartParameters
+    public class StartParameters
     {
         private Random random;
         public int Height { get; }
         public int Width { get; }
         public Dictionary<Type, double> WeightsOfCreatures { get; set; }
 
-        public LifeSimulationStartParameters(int height, int width, double wolfWeight, double sheepWeight, double grassWeight, double GroundWeight)
+        public StartParameters(int height, int width, double wolfWeight, double sheepWeight, double grassWeight, double GroundWeight)
         {
             random = new Random();
             Height = height;

@@ -3,7 +3,7 @@ namespace GameOfLife
 {
     public class Ground : Creature
     {
-        public Ground(LifeSimulation simulation, Vector place) : base(simulation, place) {}
+        public Ground(Game simulation) : base(simulation) {}
 
         public override void Grow() { }
     }

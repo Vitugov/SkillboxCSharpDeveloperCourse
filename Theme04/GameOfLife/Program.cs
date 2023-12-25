@@ -5,23 +5,21 @@ namespace GameOfLife
     {
 
         // Ограничения игры
-        private const int Heigth = 20;
-        private const int Width = 40;
+        private const int Heigth = 27;
+        private const int Width = 60;
         private const uint MaxRuns = 1000;
-        private static LifeSimulationStartParameters StartParameters
-            = new LifeSimulationStartParameters(Heigth, Width, 2, 10, 20, 2);
+        private static StartParameters StartParameters
+            = new StartParameters(Heigth, Width, 2, 10, 20, 2);
 
         private static void Main(string[] args)
         {
             int runs = 0;
-            LifeSimulation sim = new LifeSimulation(StartParameters);
+            Game sim = new Game(StartParameters);
 
             while (runs++ < MaxRuns)
             {
                 sim.DrawAndGrow();
-
-                // Дадим пользователю шанс увидеть, что происходит, немного ждем
-                System.Threading.Thread.Sleep(100);
+                Thread.Sleep(100);
             }
         }
     }

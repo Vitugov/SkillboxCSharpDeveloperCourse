@@ -3,7 +3,6 @@ namespace GameOfLife
 {
     internal class Wolf : Creature
     {
-        public Wolf(LifeSimulation simulation, Vector place) : base(simulation, place) { }
-
+        public Wolf(Game simulation) : base(simulation) { }
     }
 }
