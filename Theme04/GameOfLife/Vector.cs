@@ -31,7 +31,7 @@ namespace GameOfLife
 
         public override bool Equals(object? obj)
         {
-            if (obj.GetType() != typeof(Vector))
+            if (obj == null || obj.GetType() != typeof(Vector))
                 return false;
             return ((Vector)obj).X == this.X && ((Vector)obj).Y == this.Y;
         }
