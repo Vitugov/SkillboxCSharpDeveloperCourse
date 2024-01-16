@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "bR5DcvM04C3HHdFXPzI3znwkDQO0h9N6XZkItdPtNi2weqoIyE+ObBfRfo5chjb3pW3+TA6kkuVnutbJpFGssg==",
+  "success": true,
+  "projectFilePath": "D:\\Docs\\GitRepository\\Theme10\\Task\\Task.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mvitu\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

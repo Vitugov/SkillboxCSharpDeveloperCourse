@@ -1,0 +1,15 @@
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\Employees.GeneratedMSBuildEditorConfig.editorconfig
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\Employees.AssemblyInfoInputs.cache
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\Employees.AssemblyInfo.cs
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\Employees.csproj.CoreCompileInputs.cache
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\Employees.sourcelink.json
+D:\Docs\GitRepository\Theme6-7\Employees\bin\Debug\net6.0\Employees.exe
+D:\Docs\GitRepository\Theme6-7\Employees\bin\Debug\net6.0\Employees.deps.json
+D:\Docs\GitRepository\Theme6-7\Employees\bin\Debug\net6.0\Employees.runtimeconfig.json
+D:\Docs\GitRepository\Theme6-7\Employees\bin\Debug\net6.0\Employees.dll
+D:\Docs\GitRepository\Theme6-7\Employees\bin\Debug\net6.0\Employees.pdb
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\Employees.dll
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\refint\Employees.dll
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\Employees.pdb
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\Employees.genruntimeconfig.cache
+D:\Docs\GitRepository\Theme6-7\Employees\obj\Debug\net6.0\ref\Employees.dll
