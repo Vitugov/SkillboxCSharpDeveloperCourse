@@ -8,8 +8,6 @@ namespace Task01.Model.Data
 {
     public class Client
     {
-        //public static List<Client> Clients { get; set; }
-
         public List<Edit> Edits { get; set; }
 
         public string Surname { get; set; }
@@ -18,11 +16,6 @@ namespace Task01.Model.Data
         public string TelephoneNumber { get; set; }
         public string PassportSeriesNumber { get; set; }
 
-        static Client()
-        {
-            //Clients = new List<Client>();
-
-        }
         public Client(string surname, string name, string patronymic, string telephoneNumber, string passportSeriesNumber, string author)
         {
             Surname = surname;
@@ -32,7 +25,7 @@ namespace Task01.Model.Data
             PassportSeriesNumber = passportSeriesNumber;
             Edits = new List<Edit>();
             new Edit(this, author);
-            //Clients.Add(this);
+            Repository.CurrentRepository.Add(this);
         }
 
         public Client()
@@ -43,6 +36,7 @@ namespace Task01.Model.Data
             TelephoneNumber = "";
             PassportSeriesNumber = "";
             Edits = new List<Edit>();
+            Repository.CurrentRepository.Add(this);
         }
     }
 }

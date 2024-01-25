@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "m5R0woxr40eBuK+6HrZTyb8a9MyfjhaP0TpnbavVI4/2kMZixAOLoGGT97L+eSoCopbXTM7fG7p+IMFuQ7TKJQ==",
+  "dgSpecHash": "0JV2KD2ySg20sdoJDd3ULOX3BRM2A+st04e1JPUkjdsvA4UU6DG+nkGImHKNZMOvDkMtGyfvn1P42ytQeTxSEg==",
   "success": true,
   "projectFilePath": "D:\\Docs\\GitRepository\\AdditionalLearning\\Task01\\Task01.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\mvitu\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

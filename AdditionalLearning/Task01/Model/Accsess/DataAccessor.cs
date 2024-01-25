@@ -1,53 +1,80 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Documents;
+using Task01.Model.Data;
 
 namespace Task01.Model.Accsess
 {
     public class DataAccessor
     {
-        public Object AssociatedObject { get; set; }
         public ExpandoObject DynamicObject { get; set; }
-        public Role Role { get; set; }
+        private object AssociatedObject { get; set; }
+        public User User { get; set; }
+        public Repository Repository { get; set; }
 
-        public DataAccessor(Object associatedObject, Role role)
+        public DataAccessor(object associatedObj, User user, Repository repository)
         {
+            AssociatedObject = associatedObj;
+            User = user;
+            Repository = repository;
+            DynamicObject = CreateExpandoObject(associatedObj, user);
             
         }
 
-        public void CreateExpandoObject()
+        private dynamic CreateExpandoObject(object associatedObj, User user)
         {
-            DynamicObject = new ExpandoObject();
-            var dictionary = DynamicObject as IDictionary<string, object>;
-            //ToDo
-            AssociatedObject.GetType().GetProperties();
+            dynamic dynamicObject = new ExpandoObject();
+            var dictionary = dynamicObject as IDictionary<string, object>;
+            var type = associatedObj.GetType();
+            var rules = user.Role[type];
+            var propertyList = type.GetProperties()
+                .Select(property => property.Name)
+                .Where(propertyName =>rules.ContainsKey(propertyName) && rules[propertyName].Read)
+                .ToList();
+            propertyList
+                .ForEach(propertyName => { dictionary[propertyName] = type.GetProperty(propertyName).GetValue(associatedObj); });
+            return dynamicObject;
         }
-        public void AddProperty(string propertyName, object value)
+
+        public void UpdateAssociatedObject(User user, Repository repository)
         {
             var dictionary = DynamicObject as IDictionary<string, object>;
-            if (dictionary != null)
+            var objType = AssociatedObject.GetType();
+            var rules = User.Role[objType];
+            foreach (var propertyName in dictionary.Keys)
             {
-                if (!dictionary.ContainsKey(propertyName))
+                if (rules.ContainsKey(propertyName) && rules[propertyName].Write)
                 {
-                    dictionary.Add(propertyName, value);
-                }
-                else
-                {
-                    dictionary[propertyName] = value;
+                    var propertyInfo = objType.GetProperty(propertyName);
+                    if (propertyInfo != null)
+                    {
+                        propertyInfo.SetValue(AssociatedObject, dictionary[propertyName]);
+                    }
                 }
             }
         }
 
-        public object GetPropertyValue(string propertyName)
+        public static List<DataAccessor> GetListOfTypeForUser(User user, Type type, Repository repository)
         {
-            var dictionary = DynamicObject as IDictionary<string, object>;
-            return dictionary != null && dictionary.ContainsKey(propertyName) ? dictionary[propertyName] : throw new NullReferenceException();
+            var dynamicList = new List<DataAccessor>();
+            var list = repository.GetDataOfType(type);
+            foreach (var item in list)
+            {
+                dynamicList.Add(new DataAccessor(item, user, repository));
+            }
+            
+            return dynamicList;
         }
 
-
+        public void DeleteAssociatedObject(User user, Repository repository)
+        {
+            repository.Delete(AssociatedObject);
+        }
     }
 }

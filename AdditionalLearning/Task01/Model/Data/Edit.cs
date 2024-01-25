@@ -8,7 +8,7 @@ namespace Task01.Model.Data
 {
     public class Edit
     {
-        public static List<string> FullChanges { get; set; }
+        public static List<string> Data { get; set; }
         public DateTime DateTime { get; set; }
         public List<string> ChangedData { get; set; }
         public string TypeOfChanges { get; set; }
@@ -16,7 +16,7 @@ namespace Task01.Model.Data
 
         static Edit()
         {
-            FullChanges = new List<string>() { "Surname", "Name", "Patronimic", "TelephoneNumber", "PassportSeriesNumber" };
+            Data = new List<string>() { "Surname", "Name", "Patronimic", "TelephoneNumber", "PassportSeriesNumber" };
         }
         public Edit(Client client, List<string> changedData, string author, string typeOfChanges)
         {
@@ -27,6 +27,6 @@ namespace Task01.Model.Data
             client.Edits.Add(this);
         }
 
-        public Edit(Client client, string author) : this(client, FullChanges, author, "new") { }
+        public Edit(Client client, string author) : this(client, Data, author, "new") { }
     }
 }

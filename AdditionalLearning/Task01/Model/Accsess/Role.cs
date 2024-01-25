@@ -17,5 +17,16 @@ namespace Task01.Model.Accsess
             Name = name;
             AccessRules = new Dictionary<Type, Dictionary<string, Permission>>();
         }
+        public Dictionary<string, Permission> this[Type type]
+        {
+            get
+            {
+                if (!AccessRules.ContainsKey(type))
+                {
+                    throw new ArgumentException("There is no access rules for this type");
+                }
+                return AccessRules[type];
+            }
+        }
     }
 }
