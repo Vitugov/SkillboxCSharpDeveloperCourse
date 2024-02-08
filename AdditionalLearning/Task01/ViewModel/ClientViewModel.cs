@@ -10,11 +10,17 @@ using Task01.Infrastructure;
 using System.Windows.Input;
 using Task01.Commands.Base;
 using System.Windows;
+using System.Reflection.Metadata;
+using System.ComponentModel;
+using System.Collections;
+using System.Windows.Controls;
+using Task01.View.Validation;
 
 namespace Task01.ViewModel
 {
     public class ClientViewModel : BaseViewModel
     {
+        public bool IsNew { get; }
         public Synchronizer Synchronizer { get; }
 
         private ExpandoObject _OriginalItem;
@@ -25,6 +31,7 @@ namespace Task01.ViewModel
         }
 
         private ExpandoObject _EditableItem;
+
         public ExpandoObject EditableItem
         {
             get => _EditableItem;
@@ -32,14 +39,17 @@ namespace Task01.ViewModel
         }
 
         public Dictionary<string, bool> IsReadOnlyDic { get; set; }
-        public ClientViewModel(Synchronizer synchronizer, ExpandoObject obj)
+
+        public ClientViewModel(Synchronizer synchronizer, ExpandoObject obj, bool isNew)
         {
+            IsNew = isNew;
             Synchronizer = synchronizer;
             OriginalItem = obj;
             EditableItem = obj.Clone();
             InitializeAccessDic(Synchronizer);
-            Cancel = new RelayCommand(win => (win as Window).Close());
+            Cancel = new RelayCommand(CancelEdits);
             Save = new RelayCommand(SaveEdits);
+
         }
 
         public void InitializeAccessDic(Synchronizer synchronizer)
@@ -60,6 +70,13 @@ namespace Task01.ViewModel
         {
             var source = EditableItem as IDictionary<string, object>;
             var toUpdate = OriginalItem as IDictionary<string, object>;
+
+            if (!IsValid(source, out var errors))
+            {
+                MessageBox.Show("Не возможно сохранить:\n" + String.Join(". \n",[.. errors]), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             foreach (var prop in source)
             {
                 toUpdate[prop.Key] = prop.Value;
@@ -67,6 +84,29 @@ namespace Task01.ViewModel
             Synchronizer.Update(OriginalItem);
             var win = window as Window;
             win.Close();
+        }
+
+        public void CancelEdits(object window)
+        {
+            if (IsNew)
+                Synchronizer.Delete(OriginalItem);
+            var win = window as Window;
+            win.Close();
+        }
+
+        public bool IsValid(IDictionary<string, object> valueDic, out List<string> errors)
+        {
+            var editeableProperties = valueDic
+                .Where((pair) => IsReadOnlyDic.ContainsKey(pair.Key) && !IsReadOnlyDic[pair.Key])
+                .ToList();
+            errors = [];
+            foreach (var prop in editeableProperties)
+            {
+                var value = prop.Value as string;
+                if (string.IsNullOrEmpty(value) || value.Length < 2)
+                    errors.Add("Значение поля " + prop.Key + " не может содержать менее 1 символа.");
+            }
+            return errors.Count == 0;
         }
     }
 }

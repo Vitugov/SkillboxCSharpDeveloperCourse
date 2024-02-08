@@ -69,5 +69,10 @@ namespace Task01.Model.Accsess
             var dictionary = obj as IDictionary<string, object>;
             return [.. dictionary.Keys];
         }
+
+        public bool Validate(ExpandoObject obj, string property, out List<string> validationErrors)
+        {
+            return Validation.Validate(obj, Type, property, User.Role, out validationErrors);
+        }
     }
 }

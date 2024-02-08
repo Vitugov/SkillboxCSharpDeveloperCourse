@@ -28,5 +28,24 @@ namespace Task01.Model.Accsess
                 return AccessRules[type];
             }
         }
+        public List<string> GetChangeableProperties(Type type)
+        {
+            var result = AccessRules[type]
+                .Where((dic)=>dic.Value.Write)
+                .Select((dic)=>dic.Key).ToList();
+            return result;
+        }
+
+        public bool IsChangeable(Type type, string property)
+        {
+            var result = AccessRules[type][property].Write;
+            return result;
+        }
+
+        public bool CanAddNew(Type type)
+        {
+            var result = AccessRules[type].First().Value.Create;
+            return result;
+        }
     }
 }

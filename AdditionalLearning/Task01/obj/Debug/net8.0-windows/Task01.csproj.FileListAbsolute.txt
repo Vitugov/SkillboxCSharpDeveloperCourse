@@ -22,3 +22,5 @@ D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\Ma
 D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\MainWindow.baml
 D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\ExpandoObjectWindow.g.cs
 D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\ExpandoObjectWindow.baml
+D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\Authorization.g.cs
+D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\Authorization.baml

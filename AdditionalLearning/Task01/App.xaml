@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Task01"
              xmlns:localVM="clr-namespace:Task01.ViewModel"
-             StartupUri="View/MainWindow.xaml">
+             StartupUri="View/Authorization.xaml">
     <Application.Resources>
 
 

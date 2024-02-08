@@ -20,9 +20,9 @@ namespace Task01.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(Session session)
         {
-            //DataContext = new ViewModel.ClientsViewModel();
+            DataContext = new ClientsViewModel(session);
             InitializeComponent();
         }
 

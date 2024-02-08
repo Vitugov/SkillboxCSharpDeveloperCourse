@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Task01.Model.Accsess;
+using Task01.View.Validation;
 using Task01.ViewModel;
 
 namespace Task01.View
@@ -23,10 +24,10 @@ namespace Task01.View
     /// </summary>
     public partial class ExpandoObjectWindow : Window
     {        
-        public ExpandoObjectWindow(Synchronizer synchronizer, ExpandoObject dynamicObject)
+        public ExpandoObjectWindow(Synchronizer synchronizer, ExpandoObject dynamicObject, bool isNew = false)
         {
             InitializeComponent();
-            DataContext = new ClientViewModel(synchronizer, dynamicObject);
+            DataContext = new ClientViewModel(synchronizer, dynamicObject, isNew);
             GenerateDynamicFields();
         }
 
@@ -34,13 +35,15 @@ namespace Task01.View
         {
             var vm = DataContext as ClientViewModel;
             var dic = vm.EditableItem as IDictionary<string, object>;
+            List<BindingExpression> bindingExpressions = [];
             foreach (var property in dic)
             {
+                var isReadOnly = vm.IsReadOnlyDic[property.Key];
                 var label = new Label { Content = property.Key };
                 var textBox = new TextBox
                 {
                     Margin = new Thickness(0, 0, 0, 5),
-                    IsReadOnly = vm.IsReadOnlyDic[property.Key]
+                    IsReadOnly = isReadOnly
                 };
 
                 var binding = new Binding(property.Key)
@@ -49,12 +52,20 @@ namespace Task01.View
                     Mode = BindingMode.TwoWay,
                     UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                 };
+                
+                if (!isReadOnly)
+                    binding.ValidationRules.Add(new NotEmptyValidationRule());
 
                 textBox.SetBinding(TextBox.TextProperty, binding);
 
                 DynamicContentPanel.Children.Add(label);
                 DynamicContentPanel.Children.Add(textBox);
+
+                if (!isReadOnly)
+                    bindingExpressions.Add(textBox.GetBindingExpression(TextBox.TextProperty));
             }
+
+            bindingExpressions.ForEach((be) => be?.UpdateSource());
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Task01.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Task01;V1.0.0.0;component/view/expandoobjectwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Task01;component/view/expandoobjectwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\ExpandoObjectWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

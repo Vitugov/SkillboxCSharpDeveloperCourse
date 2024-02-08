@@ -21,7 +21,7 @@ namespace Task01.ViewModel
 {
     public class ClientsViewModel : BaseViewModel
     {
-        public User User { get; }
+        public Session Session { get; }
         public Synchronizer Synchronizer { get; }
         public Type Type { get; }
 
@@ -50,17 +50,24 @@ namespace Task01.ViewModel
 
         public ClientsViewModel()
         {
-            EditItemCommand = new RelayCommand(EditItem, CanEditItem);
-            NewItemCommand = new RelayCommand(NewItem);
-            DeleteItemCommand = new RelayCommand(DeleteItem, CanEditItem);
-            User = new User("Иван", RoleSets.Consultant);
-            _SourceList = [];
             var client = new Client("Filatov", "Ivan", "Vasilyevich", "+79138524682", "2305 564128", "Admin");
+            
+            EditItemCommand = new RelayCommand(EditItem, CanEditItem);
+            NewItemCommand = new RelayCommand(NewItem, CanCreateItem);
+            DeleteItemCommand = new RelayCommand(DeleteItem, CanDeleteItem);
+
+            _SourceList = [];
+            OpenedItems = [];
+            
             Type = typeof(Client);
             ColumnHeaders = Type.GetHeaders();
-            Synchronizer = new Synchronizer(User, Repository.CurrentRepository, Type);
+        }
+
+        public ClientsViewModel(Session session) : this()
+        {
+            Session = session;
+            Synchronizer = new Synchronizer(session.User, session.Repository, Type);
             SourceList = Synchronizer.Collection;
-            OpenedItems = [];
             OnPropertyChanged(nameof(SourceList));
         }
 
@@ -84,9 +91,19 @@ namespace Task01.ViewModel
         private void NewItem(object parameter)
         {
             var expObj = Synchronizer.CreateNew();
-            var newWindow = new ExpandoObjectWindow(Synchronizer, expObj);
+            var newWindow = new ExpandoObjectWindow(Synchronizer, expObj, true);
             HandleOpenedItems(expObj, newWindow);
             newWindow.Show();
+        }
+
+        private bool CanCreateItem(object parameter)
+        {
+            return Synchronizer.User.Role.CanAddNew(Type);
+        }
+
+        private bool CanDeleteItem(object parameter)
+        {
+            return Synchronizer.User.Role.CanAddNew(Type) && parameter != null && !OpenedItems.Contains(parameter);
         }
 
         public ICommand DeleteItemCommand { get; }
@@ -101,8 +118,5 @@ namespace Task01.ViewModel
             OpenedItems.Add(expObj);
             win.Closed += (obj, e) => OpenedItems.Remove(expObj);
         }
-
-
-
     }
 }
