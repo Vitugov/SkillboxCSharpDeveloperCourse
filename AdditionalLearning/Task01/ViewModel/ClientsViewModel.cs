@@ -50,7 +50,8 @@ namespace Task01.ViewModel
 
         public ClientsViewModel()
         {
-            var client = new Client("Filatov", "Ivan", "Vasilyevich", "+79138524682", "2305 564128", "Admin");
+            new Client("Филатов", "Иван", "Васильевич", "+79138524682", "2305 564128", "Admin");
+            new Client("Ашурков", "Игнат", "Семенович", "+79139417845", "5678 698741", "Admin");
             
             EditItemCommand = new RelayCommand(EditItem, CanEditItem);
             NewItemCommand = new RelayCommand(NewItem, CanCreateItem);
@@ -67,6 +68,7 @@ namespace Task01.ViewModel
         {
             Session = session;
             Synchronizer = new Synchronizer(session.User, session.Repository, Type);
+            
             SourceList = Synchronizer.Collection;
             OnPropertyChanged(nameof(SourceList));
         }
