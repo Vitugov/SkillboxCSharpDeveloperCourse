@@ -32,6 +32,9 @@ namespace Task01.ViewModel
             get => _SourceList;
             set => Set(ref _SourceList, value);
         }
+
+        public CollectionViewSource ViewList {  get; set; }
+
         private ExpandoObject _SelectedItem;
         public ExpandoObject SelectedItem
         {
@@ -70,6 +73,16 @@ namespace Task01.ViewModel
             Synchronizer = new Synchronizer(session.User, session.Repository, Type);
             
             SourceList = Synchronizer.Collection;
+            ViewList = new CollectionViewSource();
+            ViewList.Source = SourceList;
+            ViewList.SortDescriptions.Add(new SortDescription("Surname", ListSortDirection.Ascending));
+            ViewList.SortDescriptions.Add(new SortDescription("Surname", ListSortDirection.Descending));
+            ViewList.SortDescriptions.Add(new SortDescription("Patronymic", ListSortDirection.Ascending));
+            ViewList.SortDescriptions.Add(new SortDescription("Patronymic", ListSortDirection.Descending));
+            ViewList.LiveSortingProperties.Add("Surname");
+            ViewList.LiveSortingProperties.Add("Patronymic");
+            ViewList.IsLiveSortingRequested = true;
+
             OnPropertyChanged(nameof(SourceList));
         }
 

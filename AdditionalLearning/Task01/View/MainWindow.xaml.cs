@@ -36,26 +36,37 @@ namespace Task01.View
             {
                 var property = col.Header.ToString();
                 col.SortMemberPath = property;
-                col.Header = (DataContext as ClientsViewModel).ColumnHeaders[property];
+                var button = new Button();
+                button.Content = (DataContext as ClientsViewModel).ColumnHeaders[property];
+                button.Tag = property;
+                button.Click += OnSortButtonClick;
+                col.Header = button;
             }
         }
 
-        private void DataGrid_Sorting(object sender, DataGridSortingEventArgs e)
+        private Dictionary<string, ListSortDirection> sortDirections = [];
+
+        private void OnSortButtonClick(object sender, RoutedEventArgs e)
         {
-            e.Handled = true; // Предотвращаем стандартную сортировку
+            var button = sender as Button;
+            var sortProperty = button.Tag.ToString();
 
-            var direction = e.Column.SortDirection != ListSortDirection.Ascending
-                ? ListSortDirection.Ascending
-                : ListSortDirection.Descending;
+            if (!sortDirections.ContainsKey(sortProperty))
+            {
+                sortDirections = [];
+                sortDirections[sortProperty] = ListSortDirection.Ascending;
+            }
+            else
+            {
+                if (sortDirections[sortProperty] == ListSortDirection.Ascending)
+                    sortDirections[sortProperty] = ListSortDirection.Descending;
+                else
+                    sortDirections[sortProperty] = ListSortDirection.Ascending;
+            }
 
-            // Обновление направления сортировки для UI
-            e.Column.SortDirection = direction;
-
-            var propertyName = e.Column.SortMemberPath;
-            DynamicSorter.Sort((DataContext as ClientsViewModel).SourceList, propertyName, direction);
-
-            // Обновление UI DataGrid после сортировки
-            dynamicDataGrid.Items.Refresh();
+            var collectionView = CollectionViewSource.GetDefaultView(dynamicDataGrid.ItemsSource);
+            collectionView.SortDescriptions.Clear();
+            collectionView.SortDescriptions.Add(new SortDescription(sortProperty, sortDirections[sortProperty]));
         }
     }
 }

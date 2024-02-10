@@ -23,7 +23,7 @@ namespace Task01.Model.Data
 
         public Repository()
         {
-            Clients = new HashSet<object>();
+            Clients = [];
         }
 
         public void Add(object obj)
