@@ -24,3 +24,8 @@ D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\Ex
 D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\ExpandoObjectWindow.baml
 D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\Authorization.g.cs
 D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\Authorization.baml
+D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\EditsHystoryWindow.g.cs
+D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\View\EditsHystoryWindow.baml
+D:\Docs\GitRepository\AdditionalLearning\Task01\bin\Debug\net8.0-windows\Newtonsoft.Json.dll
+D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\Task01.csproj.AssemblyReference.cache
+D:\Docs\GitRepository\AdditionalLearning\Task01\obj\Debug\net8.0-windows\Task01.csproj.CopyComplete

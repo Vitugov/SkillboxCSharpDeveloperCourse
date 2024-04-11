@@ -12,8 +12,8 @@ namespace Task01.Model.Accsess
         static UserSets()
         {
             Users = [];
-            Users.Add(new User("Антропов Александр Евгеньевич", RoleSets.Consultant));
             Users.Add(new User("Балаганов Олег Васильевич", RoleSets.Manager));
+            Users.Add(new User("Антропов Александр Евгеньевич", RoleSets.Consultant));
         }
         public static Dictionary<string, User> GetUserList()
         {

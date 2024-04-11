@@ -13,16 +13,14 @@ namespace Task01.Model.Accsess
 {
     public class Synchronizer
     {
-        public User User { get; set; }
-        public Repository Repository { get; set; }
-        public Type Type { get; set; }
+        public Type Type { get; }
+        public Session Session { get; }
         private Dictionary<ExpandoObject, DataAccessor> CollectionToDataAccessorDic { get; set; }
         public DynamicItemCollection Collection {  get; set; }
 
-        public Synchronizer(User user, Repository repository, Type type)
+        public Synchronizer(Session session, Type type)
         {
-            User = user;
-            Repository = repository;
+            Session = session;
             Type = type;
             CollectionToDataAccessorDic = [];
             Collection = [];
@@ -30,7 +28,7 @@ namespace Task01.Model.Accsess
         }
         public void UpdateDataFromDataAccessor()
         {
-            var list = DataAccessor.GetListOfTypeForUser(User, Type, Repository);
+            var list = DataAccessor.GetListOfTypeForUser(Session, Type);
             CollectionToDataAccessorDic = [];
             foreach (var item in list)
             {
@@ -43,22 +41,22 @@ namespace Task01.Model.Accsess
         {
             if (!CollectionToDataAccessorDic.ContainsKey(obj))
                 throw new NullReferenceException("Object to update havn't finded");
-            CollectionToDataAccessorDic[obj].UpdateAssociatedObject(User, Repository);
+            CollectionToDataAccessorDic[obj].UpdateAssociatedObject();
         }
 
         public void Delete(ExpandoObject obj)
         {
+            Serialization.Serialize();
             if (!CollectionToDataAccessorDic.ContainsKey(obj))
                 throw new NullReferenceException("Object to update havn't finded");
             Collection.Remove(obj);
-            CollectionToDataAccessorDic[obj].DeleteAssociatedObject(User, Repository);
+            CollectionToDataAccessorDic[obj].DeleteAssociatedObject();
             CollectionToDataAccessorDic.Remove(obj);
         }
 
         public ExpandoObject CreateNew()
         {
-            var associatedObj = Activator.CreateInstance(Type);
-            var newDAObj = new DataAccessor(associatedObj, User, Repository);
+            var newDAObj = new DataAccessor(Session, Type);
             CollectionToDataAccessorDic[newDAObj.DynamicObject] = newDAObj;
             Collection.Add(newDAObj.DynamicObject);
             return newDAObj.DynamicObject;
@@ -72,7 +70,12 @@ namespace Task01.Model.Accsess
 
         public bool Validate(ExpandoObject obj, string property, out List<string> validationErrors)
         {
-            return Validation.Validate(obj, Type, property, User.Role, out validationErrors);
+            return Validation.Validate(obj, Type, property, Session.User.Role, out validationErrors);
+        }
+
+        public ObservableCollection<Edit> GetEdits(ExpandoObject obj)
+        {
+            return new ObservableCollection<Edit>(CollectionToDataAccessorDic[obj].GetObjectEdits());
         }
     }
 }

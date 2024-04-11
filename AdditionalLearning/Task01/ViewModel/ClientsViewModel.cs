@@ -53,9 +53,7 @@ namespace Task01.ViewModel
 
         public ClientsViewModel()
         {
-            new Client("Филатов", "Иван", "Васильевич", "+79138524682", "2305 564128", "Admin");
-            new Client("Ашурков", "Игнат", "Семенович", "+79139417845", "5678 698741", "Admin");
-            
+            Serialization.Deserialize();
             EditItemCommand = new RelayCommand(EditItem, CanEditItem);
             NewItemCommand = new RelayCommand(NewItem, CanCreateItem);
             DeleteItemCommand = new RelayCommand(DeleteItem, CanDeleteItem);
@@ -70,18 +68,11 @@ namespace Task01.ViewModel
         public ClientsViewModel(Session session) : this()
         {
             Session = session;
-            Synchronizer = new Synchronizer(session.User, session.Repository, Type);
+            Synchronizer = new Synchronizer(Session, Type);
             
             SourceList = Synchronizer.Collection;
             ViewList = new CollectionViewSource();
             ViewList.Source = SourceList;
-            ViewList.SortDescriptions.Add(new SortDescription("Surname", ListSortDirection.Ascending));
-            ViewList.SortDescriptions.Add(new SortDescription("Surname", ListSortDirection.Descending));
-            ViewList.SortDescriptions.Add(new SortDescription("Patronymic", ListSortDirection.Ascending));
-            ViewList.SortDescriptions.Add(new SortDescription("Patronymic", ListSortDirection.Descending));
-            ViewList.LiveSortingProperties.Add("Surname");
-            ViewList.LiveSortingProperties.Add("Patronymic");
-            ViewList.IsLiveSortingRequested = true;
 
             OnPropertyChanged(nameof(SourceList));
         }
@@ -113,12 +104,12 @@ namespace Task01.ViewModel
 
         private bool CanCreateItem(object parameter)
         {
-            return Synchronizer.User.Role.CanAddNew(Type);
+            return Synchronizer.Session.User.Role.CanAddNew(Type);
         }
 
         private bool CanDeleteItem(object parameter)
         {
-            return Synchronizer.User.Role.CanAddNew(Type) && parameter != null && !OpenedItems.Contains(parameter);
+            return Synchronizer.Session.User.Role.CanAddNew(Type) && parameter != null && !OpenedItems.Contains(parameter);
         }
 
         public ICommand DeleteItemCommand { get; }
@@ -132,6 +123,11 @@ namespace Task01.ViewModel
         {
             OpenedItems.Add(expObj);
             win.Closed += (obj, e) => OpenedItems.Remove(expObj);
+        }
+
+        public void OnWindowClosing()
+        {
+            Serialization.Serialize();
         }
     }
 }

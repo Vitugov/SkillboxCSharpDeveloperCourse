@@ -3,30 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Task01.Model.Accsess;
+using Task01.Model.Data;
 
 namespace Task01.Model.Data
 {
     public class Edit
     {
-        public static List<string> Data { get; set; }
         public DateTime DateTime { get; set; }
-        public List<string> ChangedData { get; set; }
+        public string ChangedData { get; set; }
         public string TypeOfChanges { get; set; }
         public string Author { get; set; }
 
-        static Edit()
-        {
-            Data = new List<string>() { "Surname", "Name", "Patronimic", "TelephoneNumber", "PassportSeriesNumber" };
-        }
-        public Edit(Client client, List<string> changedData, string author, string typeOfChanges)
+        public Edit(IStoredData obj, List<string> changedData, string author, string typeOfChanges)
         {
             DateTime = DateTime.Now;
-            ChangedData = changedData;
+            ChangedData = string.Join(", ", changedData);
             Author = author;
             TypeOfChanges = typeOfChanges;
-            client.Edits.Add(this);
+            Repository.CurrentRepository.AddEdit(obj, this);
         }
 
-        public Edit(Client client, string author) : this(client, Data, author, "new") { }
+        public Edit(IStoredData obj, string author) : this(obj, [], author, "Объект создан") { }
+
+        public Edit() { }
     }
 }

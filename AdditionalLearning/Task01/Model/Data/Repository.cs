@@ -6,65 +6,53 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Task01.Model.Accsess;
 
 namespace Task01.Model.Data
 {
     public class Repository
     {
         public static Repository CurrentRepository { get; set; }
-        private static Dictionary<Type, PropertyInfo> dataByType {  get; set; }
-        public HashSet<object> Clients { get; set; }
+        public Dictionary<Type, Dictionary<IStoredData, List<Edit>>> Edits { get; set; }
         static Repository()
         {
             CurrentRepository = new Repository();
-            dataByType = new Dictionary<Type, PropertyInfo>();
-            dataByType[typeof(Client)] = typeof(Repository).GetProperty("Clients");
         }
 
         public Repository()
         {
-            Clients = [];
+            Edits = [];
         }
 
-        public void Add(object obj)
+        public void Add(IStoredData obj)
         {
             Type objectType = obj.GetType();
-
-            if (!dataByType.ContainsKey(objectType))
-            {
-                throw new ArgumentException($"Type {objectType} is not supported in this repository.");
-            }
-            
-            AddToSpecificList(obj, dataByType[objectType]);
+            if (!Edits.ContainsKey(objectType))
+                Edits[objectType] = [];
+            Edits[objectType].Add(obj, []);
         }
 
-        public void Delete(object obj)
+        public void Delete(IStoredData obj)
         {
             Type objectType = obj.GetType();
-            if (!dataByType.ContainsKey(objectType))
-            {
-                throw new ArgumentException($"Type {objectType} is not supported in this repository.");
-            }
-            var data = (HashSet<object>)dataByType[objectType].GetValue(this);
-            data.Remove(obj);
+            Edits[objectType].Remove(obj);
         }
 
-        public HashSet<object> GetDataOfType(Type type)
+        public HashSet<IStoredData> GetDataOfType(Type type)
         {
-            var list = (HashSet<object>)dataByType[type].GetValue(this);
-            return list;
+            return new HashSet<IStoredData>(Edits[type].Keys);
         }
 
-        private void AddToSpecificList(object obj, PropertyInfo property)
+        public List<Edit> GetObjectEdits(IStoredData obj)
         {
-            var hashset = (HashSet<object>)property.GetValue(this);
+            var type = obj.GetType();
+            return Edits[type][obj];
+        }
 
-            if (hashset == null)
-            {
-                throw new InvalidOperationException($"Property {property.Name} is not a valid list in this repository.");
-            }
-
-            hashset.Add(obj);
+        public void AddEdit(IStoredData obj, Edit edit)
+        {
+            Type objectType = obj.GetType();
+            Edits[objectType][obj].Add(edit);
         }
     }
 

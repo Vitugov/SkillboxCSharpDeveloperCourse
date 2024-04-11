@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Task01.Infrastructure;
 using Task01.Model.Accsess;
 using Task01.Model.Data;
+using Task01.Model.Data;
 using Task01.ViewModel;
 
 namespace Task01.View
@@ -27,6 +28,7 @@ namespace Task01.View
         {
             DataContext = new ClientsViewModel(session);
             InitializeComponent();
+            Closing += MainWindow_Closing;
         }
 
         private void SetDataGridHeaders(object sender, EventArgs e)
@@ -67,6 +69,11 @@ namespace Task01.View
             var collectionView = CollectionViewSource.GetDefaultView(dynamicDataGrid.ItemsSource);
             collectionView.SortDescriptions.Clear();
             collectionView.SortDescriptions.Add(new SortDescription(sortProperty, sortDirections[sortProperty]));
+        }
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            (this.DataContext as ClientsViewModel)?.OnWindowClosing();
         }
     }
 }

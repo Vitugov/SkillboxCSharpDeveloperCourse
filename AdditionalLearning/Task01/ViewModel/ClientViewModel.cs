@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Collections;
 using System.Windows.Controls;
 using Task01.View.Validation;
+using Task01.View;
 
 namespace Task01.ViewModel
 {
@@ -39,6 +40,12 @@ namespace Task01.ViewModel
         }
 
         public Dictionary<string, bool> IsReadOnlyDic { get; set; }
+        private bool _IsEditsHystoryOpened;
+        public bool IsEditsHystoryOpened
+        {
+            get => _IsEditsHystoryOpened;
+            set => Set(ref _IsEditsHystoryOpened, value);
+        }
 
         public ClientViewModel(Synchronizer synchronizer, ExpandoObject obj, bool isNew)
         {
@@ -46,15 +53,17 @@ namespace Task01.ViewModel
             Synchronizer = synchronizer;
             OriginalItem = obj;
             EditableItem = obj.Clone();
+            IsEditsHystoryOpened = false;
             InitializeAccessDic(Synchronizer);
             Cancel = new RelayCommand(CancelEdits);
             Save = new RelayCommand(SaveEdits);
+            EditsHistory = new RelayCommand(OpenEditsHistory, (obj) => !IsEditsHystoryOpened);
 
         }
 
         public void InitializeAccessDic(Synchronizer synchronizer)
         {
-            var dic = synchronizer.User.Role.AccessRules[synchronizer.Type];
+            var dic = synchronizer.Session.User.Role.AccessRules[synchronizer.Type];
             IsReadOnlyDic = [];
             foreach(var prop in dic)
             {
@@ -65,6 +74,7 @@ namespace Task01.ViewModel
 
         public ICommand Cancel { get; }
         public ICommand Save { get; }
+        public ICommand EditsHistory { get;  }
 
         public void SaveEdits(object window)
         {
@@ -107,6 +117,14 @@ namespace Task01.ViewModel
                     errors.Add("Значение поля " + prop.Key + " не может содержать менее 1 символа.");
             }
             return errors.Count == 0;
+        }
+
+        private void OpenEditsHistory(object parameter)
+        {
+            var win = new EditsHystoryWindow(Synchronizer, OriginalItem);
+            IsEditsHystoryOpened = true;
+            win.Closed += (obj, e) => IsEditsHystoryOpened = false;
+            win.Show();
         }
     }
 }

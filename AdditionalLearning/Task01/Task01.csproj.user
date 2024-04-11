@@ -10,12 +10,18 @@
     <Compile Update="View\Authorization.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\EditsHystoryWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\ExpandoObjectWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\Authorization.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EditsHystoryWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\ExpandoObjectWindow.xaml">
